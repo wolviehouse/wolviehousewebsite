@@ -1,9 +1,9 @@
 :root {
   --ink: #111111;
-  --paper: #F4F1EA;
-  --paper2: #ECE7DD;
-  --stone: #76736C;
-  --line: #D6D0C4;
+  --paper: #D9D2C5;
+  --paper2: #E6E0D5;
+  --stone: #6E685F;
+  --line: #C7BFB1;
   --orange: #FF5A2F;
   --max: 1240px;
 }
@@ -35,9 +35,9 @@ a { color: inherit; text-decoration: none; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(244, 241, 234, 0.94);
+  background: rgba(217, 210, 197, 0.9);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(214, 208, 196, 0.85);
+  border-bottom: 1px solid rgba(199, 191, 177, 0.85);
 }
 
 .wordmark {
@@ -60,6 +60,7 @@ a { color: inherit; text-decoration: none; }
   min-height: 830px;
   padding: 86px 0 74px;
   position: relative;
+  overflow: hidden;
 }
 .kicker,
 .sectionLabel {
@@ -92,12 +93,13 @@ h1 {
   height: 3px;
   background: var(--orange);
   margin-top: 38px;
+  transform-origin: left center;
 }
 
 .lead {
   font-size: 1.28rem;
   line-height: 1.52;
-  color: #45413c;
+  color: #403c37;
   letter-spacing: -0.02em;
   max-width: 520px;
 }
@@ -121,15 +123,18 @@ h1 {
   transition: .18s ease;
 }
 .button:hover { transform: translateY(-2px); }
-.button.dark { background: var(--ink); color: var(--paper); }
-.button.dark:hover { background: var(--orange); border-color: var(--orange); }
+.button.dark { background: var(--ink); color: var(--paper2); }
+.button.dark:hover { background: var(--orange); border-color: var(--orange); color: #fff; }
 .button.light { background: transparent; }
+.button.light:hover { background: rgba(17, 17, 17, 0.05); }
 
 .heroMark {
   position: absolute;
   right: 0;
   bottom: 42px;
-  opacity: .09;
+  opacity: .1;
+  transform-origin: bottom right;
+  will-change: transform, opacity;
 }
 .wolvieMark { width: 240px; height: auto; display: block; }
 
@@ -154,72 +159,123 @@ h2 {
   padding-top: 12px;
 }
 .bodyCopy p {
-  color: #4D4943;
+  color: #423e38;
   font-size: 1.2rem;
   line-height: 1.58;
   letter-spacing: -0.02em;
 }
 
-.sectionHeading {
+/* ---------- Focus areas: sticky scroll story ---------- */
+.focusStory {
+  position: relative;
+  background: var(--paper2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.focusSticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0 90px;
+}
+.focusStickyHead {
   display: grid;
   grid-template-columns: 1fr 420px;
   gap: 70px;
   align-items: end;
-  margin: 54px 0 54px;
+  margin-bottom: 72px;
 }
-.sectionHeading h2 {
-  font-size: clamp(3.2rem, 6vw, 5.7rem);
-}
-.sectionHeading p {
+.focusIntro {
   margin-bottom: 0;
   color: var(--stone);
   line-height: 1.55;
+  max-width: 420px;
 }
 
-.focusGrid {
+.focusStage {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  grid-template-columns: 220px 1fr;
+  gap: 80px;
+  align-items: center;
+  min-height: 300px;
 }
-.focusCard {
-  background: var(--paper);
-  min-height: 360px;
-  padding: 24px;
+
+.focusRail {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 18px;
 }
-.focusTop {
-  color: var(--stone);
-  font-size: .72rem;
-  letter-spacing: .17em;
+.focusTick {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 16px;
+  opacity: .35;
+  transition: opacity .5s ease;
 }
-.spark {
-  width: 10px;
-  height: 10px;
-  background: var(--orange);
-  transform: rotate(45deg);
-}
-.focusCard h3 {
-  margin-bottom: 12px;
-  font-size: 1.5rem;
-  letter-spacing: -0.04em;
-}
-.focusCard p {
-  margin-bottom: 0;
+.focusTick.isActive { opacity: 1; }
+.focusTickNum {
+  font-size: .72rem;
+  letter-spacing: .17em;
   color: var(--stone);
-  line-height: 1.5;
-  font-size: .95rem;
+  width: 22px;
+}
+.focusTick.isActive .focusTickNum { color: var(--ink); }
+.focusTickBar {
+  height: 1px;
+  width: 46px;
+  background: var(--line);
+  transition: background .5s ease, width .5s ease;
+}
+.focusTick.isActive .focusTickBar {
+  background: var(--orange);
+  width: 72px;
+}
+
+.focusPanel {
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+}
+.focusPanelInner { max-width: 640px; }
+.focusPanelNum {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  color: var(--orange);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  margin-bottom: 26px;
+}
+.focusOf {
+  color: var(--stone);
+  font-weight: 600;
+  letter-spacing: .12em;
+  font-size: .74rem;
+}
+.focusPanelTitle {
+  margin: 0 0 24px;
+  font-size: clamp(3rem, 6.4vw, 5.6rem);
+  line-height: .95;
+  letter-spacing: -0.06em;
+  font-weight: 900;
+}
+.focusPanelText {
+  margin: 0;
+  color: #423e38;
+  font-size: 1.28rem;
+  line-height: 1.55;
+  letter-spacing: -0.02em;
+  max-width: 560px;
 }
 
 .darkSection {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--paper2);
 }
 .darkGrid {
   min-height: 840px;
@@ -233,11 +289,13 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: transform;
 }
 .markWrap .wolvieMark { width: 310px; }
 
 .lightLabel { color: #9B948B; }
-.darkGrid h2 { margin-top: 42px; }
+.approachWords { margin-top: 42px; }
+.approachWord { display: block; }
 .darkText {
   margin-top: 42px;
   max-width: 560px;
@@ -258,7 +316,9 @@ h2 {
   font-size: clamp(1.25rem, 2.4vw, 2.1rem);
   font-weight: 800;
   letter-spacing: -0.04em;
+  transition: gap .2s ease;
 }
+.email:hover { gap: 22px; }
 .email span { color: var(--orange); }
 
 .footer {
@@ -287,16 +347,20 @@ h2 {
   .heroGrid,
   .twoCol,
   .darkGrid,
-  .sectionHeading {
+  .focusStickyHead {
     grid-template-columns: 1fr;
     gap: 50px;
   }
-  .focusGrid { grid-template-columns: repeat(2, 1fr); }
   .heroGrid { margin-top: 96px; }
   .heroMark { display: none; }
   .markWrap { justify-content: flex-start; }
   .footer { grid-template-columns: 1fr 1fr; }
   .copyright { grid-column: 1 / -1; }
+
+  .focusStage { grid-template-columns: 1fr; gap: 44px; }
+  .focusRail { flex-direction: row; flex-wrap: wrap; gap: 12px 22px; }
+  .focusTickBar { width: 32px; }
+  .focusTick.isActive .focusTickBar { width: 46px; }
 }
 
 @media (max-width: 720px) {
@@ -313,8 +377,11 @@ h2 {
   h2 { font-size: clamp(3rem, 13vw, 4.7rem); }
 
   .section { padding: 82px 0; }
-  .focusGrid { grid-template-columns: 1fr; }
-  .focusCard { min-height: 230px; }
+
+  .focusSticky { padding: 92px 0 72px; }
+  .focusStickyHead { margin-bottom: 48px; }
+  .focusPanelTitle { font-size: clamp(2.6rem, 13vw, 4rem); }
+  .focusPanelText { font-size: 1.12rem; }
 
   .darkGrid {
     min-height: auto;
@@ -329,4 +396,8 @@ h2 {
     gap: 32px;
   }
   .copyright { grid-column: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
