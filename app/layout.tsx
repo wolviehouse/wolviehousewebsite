@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
 export const metadata: Metadata = {
   title: "WOLVIE — Different directions. One house.",
@@ -21,7 +23,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+      </body>
     </html>
   );
 }
